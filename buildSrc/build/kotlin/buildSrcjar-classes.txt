@@ -1,0 +1,1 @@
+C:\Users\ashraf.atef\projects\SV\buildSrc\build\classes\kotlin\main\Deps.class;C:\Users\ashraf.atef\projects\SV\buildSrc\build\classes\kotlin\main\Versions.class
