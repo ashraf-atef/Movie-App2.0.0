@@ -6,12 +6,14 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply from: "$project.rootDir/configs.gradle"
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.example.myapplication"
-        minSdkVersion 15
+        minSdkVersion 24
         targetSdkVersion 29
         versionCode Versions.versionCode
         versionName Versions.versionName
@@ -31,7 +33,7 @@ kapt {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.core:core-ktx:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
@@ -44,8 +46,10 @@ dependencies {
 
     // Room
     implementation Deps.room
+    implementation Deps.roomRX
+    implementation Deps.roomKTS
     kapt Deps.roomCompiler
-    testImplementation  Deps.roomTesting
+    testImplementation Deps.roomTesting
 
     // MVRX
     implementation Deps.mvrx
@@ -53,6 +57,17 @@ dependencies {
     // Epoxy
     implementation Deps.epoxy
     kapt Deps.epoxyAnnotationProcessor
+
+    // Retrofit
+    implementation Deps.retrofit
+    implementation Deps.retrofitConverter
+    implementation Deps.retrofitRxAdapter
+    implementation Deps.okHttp3
+    implementation Deps.okhttp3LogginInterceptor
+
+    // RX
+    implementation Deps.rxAndroid
+    implementation Deps.rxJava
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
