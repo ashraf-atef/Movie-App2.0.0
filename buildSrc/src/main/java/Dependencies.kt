@@ -3,12 +3,13 @@ object Versions {
     val versionName = "1.0.0"
     val koin_version = "2.1.5"
     val room_version = "2.2.5"
-    val mvrx_version = "2.0.0-alpha7"
-    val epoxyVersion = "4.0.0"
+    val mvrx_version = "2.0.0-alpha2"
+    val epoxyVersion = "3.10.0"
     val retrofit_version = "2.5.0"
-    val  okhttp3_version = "3.14.2"
+    val okhttp3_version = "3.14.2"
     val rxAndroid = "2.1.1"
     val rxJava = "2.2.10"
+    val glide_version = "4.11.0"
 }
 
 object Deps {
@@ -38,4 +39,8 @@ object Deps {
     //RxJava
     val rxAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxAndroid}"
     val rxJava = "io.reactivex.rxjava2:rxjava:${Versions.rxJava}"
+
+    //Glide
+    val glide = "com.github.bumptech.glide:glide:${Versions.glide_version}"
+    val glideAnnotationProcessor = "com.github.bumptech.glide:compiler:${Versions.glide_version}"
 }
