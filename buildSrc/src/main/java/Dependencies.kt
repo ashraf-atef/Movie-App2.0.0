@@ -5,6 +5,10 @@ object Versions {
     val room_version = "2.2.5"
     val mvrx_version = "2.0.0-alpha7"
     val epoxyVersion = "4.0.0"
+    val retrofit_version = "2.5.0"
+    val  okhttp3_version = "3.14.2"
+    val rxAndroid = "2.1.1"
+    val rxJava = "2.2.10"
 }
 
 object Deps {
@@ -14,6 +18,8 @@ object Deps {
     val koinViewModel = "org.koin:koin-androidx-viewmodel:${Versions.koin_version}"
 
     val room = "androidx.room:room-runtime:${Versions.room_version}"
+    val roomRX = "androidx.room:room-rxjava2:${Versions.room_version}"
+    val roomKTS = "androidx.room:room-ktx:${Versions.room_version}"
     val roomCompiler = "androidx.room:room-compiler:${Versions.room_version}"
     val roomTesting = "androidx.room:room-testing:${Versions.room_version}"
 
@@ -21,4 +27,15 @@ object Deps {
 
     val epoxy = "com.airbnb.android:epoxy:${Versions.epoxyVersion}"
     val epoxyAnnotationProcessor = "com.airbnb.android:epoxy-processor:${Versions.epoxyVersion}"
+
+    //Retrofit
+    val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit_version}"
+    val retrofitConverter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit_version}"
+    val retrofitRxAdapter = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofit_version}"
+    val okHttp3 = "com.squareup.okhttp3:okhttp:${Versions.okhttp3_version}"
+    val okhttp3LogginInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp3_version}"
+
+    //RxJava
+    val rxAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxAndroid}"
+    val rxJava = "io.reactivex.rxjava2:rxjava:${Versions.rxJava}"
 }
