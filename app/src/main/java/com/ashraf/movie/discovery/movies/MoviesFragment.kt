@@ -38,7 +38,7 @@ class MoviesFragment : BaseMvRxFragment(R.layout.fragment_movies_fragmment) {
                         }
 
                     // Add loading if loading
-                    if(it.moviesPageRequest is Loading || it.filteredMoviesRequest is Loading)
+                    if (it.moviesPageRequest is Loading || it.filteredMoviesRequest is Loading)
                         loadingModel {
                             id("loading")
                         }
@@ -59,7 +59,7 @@ class MoviesFragment : BaseMvRxFragment(R.layout.fragment_movies_fragmment) {
             }
         })
 
-        et_search.addTextChangedListener( object : TextWatcher {
+        et_search.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
 
@@ -71,6 +71,8 @@ class MoviesFragment : BaseMvRxFragment(R.layout.fragment_movies_fragmment) {
             }
 
         })
+
+        iv_clear.setOnClickListener { et_search.text.clear() }
     }
 
     override fun invalidate() {

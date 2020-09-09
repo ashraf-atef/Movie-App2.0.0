@@ -1,10 +1,7 @@
 package com.ashraf.movie.discovery.movies
 
 import android.util.Log
-import com.airbnb.mvrx.BaseMvRxViewModel
-import com.airbnb.mvrx.MvRxViewModelFactory
-import com.airbnb.mvrx.Success
-import com.airbnb.mvrx.ViewModelContext
+import com.airbnb.mvrx.*
 import com.ashraf.movie.discovery.data.MoviesRepository
 import com.ashraf.movie.discovery.data.local.Movie
 import io.reactivex.disposables.Disposable
@@ -51,14 +48,20 @@ class MoviesViewModel(
     }
 
     fun onSearch(text: String) {
-        moviesRepository.search(text)
-            .subscribeOn(Schedulers.io())
-            .execute {
-                copy(
-                    filterText = text,
-                    filteredMoviesRequest = it
-                )
-            }
+        setState {
+            copy(
+                filterText = text,
+                filteredMoviesRequest = Uninitialized
+            )
+        }
+        if (text.isNotEmpty())
+            moviesRepository.search(text)
+                .subscribeOn(Schedulers.io())
+                .execute {
+                    copy(
+                        filteredMoviesRequest = if (it is Success) 
+                    )
+                }
     }
 
     companion object : MvRxViewModelFactory<MoviesViewModel, MoviesState> {

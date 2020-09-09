@@ -20,12 +20,11 @@ interface MovieDao {
     @Query("SELECT count(*) FROM Movie")
     fun getCount(): Observable<Int>
 
-    @Query(
-        "SELECT DISTINCT year FROM Movie AS first left join " +
-                " SELECT * from Movie as second where first.year = second.year" +
-                " AND title like '%:text' AND year = :year $ORDER_CONDITION LIMIT $SEARCH_YEAR_LIMIT"
-    )
-    fun searchByTitle(text: String): Single<List<Movie>>
+    @Query("SELECT DISTINCT year FROM Movie WHERE title LIKE '%' || :text  || '%' ORDER BY year DESC")
+    fun selectDistinctYearsSearchByTitle(text: String): Observable<List<Int>>
+
+    @Query("SELECT * FROM Movie WHERE title  LIKE '%' || :text  || '%' AND year = :year LIMIT $SEARCH_YEAR_LIMIT")
+    fun searchByTitleAndYearLimit(text: String, year: Int): Observable<List<Movie>>
 }
 
-const val ORDER_CONDITION: String = "ORDER By year, rating DESC"
+const val ORDER_CONDITION: String = "ORDER By year DESC, rating DESC"
