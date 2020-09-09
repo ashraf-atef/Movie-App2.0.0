@@ -12,4 +12,6 @@ class MoviesRepository(private val moviesLocalDataSource: MoviesLocalDataSource)
         .doOnSuccess { pageNumber++ }
 
     fun getCount(): Observable<Int> = moviesLocalDataSource.getCount()
+
+    fun search(text: String): Single<List<Movie>> = moviesLocalDataSource.search(text)
 }

@@ -50,6 +50,17 @@ class MoviesViewModel(
             }
     }
 
+    fun onSearch(text: String) {
+        moviesRepository.search(text)
+            .subscribeOn(Schedulers.io())
+            .execute {
+                copy(
+                    filterText = text,
+                    filteredMoviesRequest = it
+                )
+            }
+    }
+
     companion object : MvRxViewModelFactory<MoviesViewModel, MoviesState> {
         override fun create(
             viewModelContext: ViewModelContext,

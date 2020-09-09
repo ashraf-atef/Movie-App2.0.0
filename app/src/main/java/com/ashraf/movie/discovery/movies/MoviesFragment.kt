@@ -1,13 +1,12 @@
 package com.ashraf.movie.discovery.movies
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import com.airbnb.epoxy.AsyncEpoxyController
 import com.airbnb.epoxy.AutoModel
-import com.airbnb.mvrx.BaseMvRxFragment
-import com.airbnb.mvrx.Loading
-import com.airbnb.mvrx.fragmentViewModel
-import com.airbnb.mvrx.withState
+import com.airbnb.mvrx.*
 import com.ashraf.movie.R
 import com.ashraf.movie.discovery.data.local.Movie
 import com.ashraf.movie.discovery.movies.epoxy.LoadingModelModel_
@@ -25,7 +24,11 @@ class MoviesFragment : BaseMvRxFragment(R.layout.fragment_movies_fragmment) {
             override fun buildModels() {
                 withState(moviesViewModel) {
                     // Add Movies
-                    (if (it.filterText.isEmpty()) it.movies else it.filteredMovies)
+                    (when {
+                        it.filterText.isEmpty() -> it.movies
+                        it.filteredMoviesRequest is Success -> (it.filteredMoviesRequest)()
+                        else -> listOf()
+                    })
                         .forEach { item: Movie ->
                             movie {
                                 id("movie", item.title)
@@ -54,6 +57,19 @@ class MoviesFragment : BaseMvRxFragment(R.layout.fragment_movies_fragmment) {
             override fun onLoadMore() {
                 moviesViewModel.getMovies()
             }
+        })
+
+        et_search.addTextChangedListener( object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                moviesViewModel.onSearch(s.toString())
+            }
+
         })
     }
 
