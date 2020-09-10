@@ -8,17 +8,12 @@ class GettingMoviesPhotosUseCase(private val moviePhotosRepository: MoviePhotosR
 
     fun apply(title: String): Single<List<String>> =
         moviePhotosRepository.getMoviePhotos(title)
-            .map { response ->
-                val photosUrls: MutableList<String> = mutableListOf()
-                val moviePhotoURlTemplate = FLICKR_PHOTO_URL_TEMPLATE
-                    .replace(SERVER_KEY, it.server)
-                    .replace(ID_KEY, it.id)
-                    .replace(SECRET_KEY, it.secret)
-                repeat(it.farm) { farm ->
-                    photosUrls.add(
-                        moviePhotoURlTemplate.replace(FARM_KEY, (farm + 1).toString())
-                    )
+            .map { response ->  response.photos.photo.map {
+                    FLICKR_PHOTO_URL_TEMPLATE
+                        .replace(FARM_KEY, it.farm.toString())
+                        .replace(SERVER_KEY, it.server)
+                        .replace(ID_KEY, it.id)
+                        .replace(SECRET_KEY, it.secret)
                 }
-                photosUrls
             }
 }

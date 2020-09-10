@@ -2,7 +2,7 @@ package com.ashraf.movie.common.data.remote
 
 import com.ashraf.movie.BuildConfig
 import com.ashraf.movie.discovery.REMOTE_PAGE_SIZE
-import com.ashraf.movie.discovery.details.data.model.MoviesPhotosDetailsResponse
+import com.ashraf.movie.discovery.details.data.model.MoviesPhotosResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -17,5 +17,5 @@ interface RemoteAPI {
         @Query("api_key") apiKEy: String = BuildConfig.PHOTOS_API_KEY,
         @Query("format") format: String = "json",
         @Query("nojsoncallback") nojsoncallback: Int= 1
-    ) : Single<MoviesPhotosDetailsResponse>
+    ) : Single<MoviesPhotosResponse>
 }
