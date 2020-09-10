@@ -6,6 +6,7 @@ import com.airbnb.mvrx.MvRxViewModelConfigFactory
 import com.ashraf.movie.common.data.local.di.databaseModule
 import com.ashraf.movie.common.data.remote.di.remoteModule
 import com.ashraf.movie.discovery.di.dataModule
+import com.ashraf.movie.discovery.di.domainModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -26,7 +27,8 @@ class MoviesApplication : Application() {
                 listOf(
                     databaseModule,
                     remoteModule,
-                    dataModule
+                    dataModule,
+                    domainModule
                 )
             )
         }

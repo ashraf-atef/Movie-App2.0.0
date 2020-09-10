@@ -1,4 +1,4 @@
-package com.ashraf.movie.discovery.movies.epoxy
+package com.ashraf.movie.common.presentation.epoxy
 
 import android.content.Context
 import android.util.AttributeSet

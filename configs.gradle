@@ -1,5 +1,6 @@
 android {
     defaultConfig {
         buildConfigField "String", "SERVER_URL", "\"https://api.flickr.com\""
+        buildConfigField "String", "PHOTOS_API_KEY", "\"e7090934d84331921b234a94095987bd\""
     }
 }

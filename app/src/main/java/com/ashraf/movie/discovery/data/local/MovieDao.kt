@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.ashraf.movie.discovery.SEARCH_YEAR_LIMIT
+import com.ashraf.movie.discovery.LOCAL_SEARCH_YEAR_LIMIT
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -23,8 +23,11 @@ interface MovieDao {
     @Query("SELECT DISTINCT year FROM Movie WHERE title LIKE '%' || :text  || '%' ORDER BY year DESC")
     fun selectDistinctYearsSearchByTitle(text: String): Observable<List<Int>>
 
-    @Query("SELECT * FROM Movie WHERE title  LIKE '%' || :text  || '%' AND year = :year LIMIT $SEARCH_YEAR_LIMIT")
+    @Query("SELECT * FROM Movie WHERE title  LIKE '%' || :text  || '%' AND year = :year LIMIT $LOCAL_SEARCH_YEAR_LIMIT")
     fun searchByTitleAndYearLimit(text: String, year: Int): Observable<List<Movie>>
+
+    @Query("SELECT * from Movie WHERE title like :title")
+    fun searchByTitle(title: String): Single<Movie>
 }
 
 const val ORDER_CONDITION: String = "ORDER By year DESC, rating DESC"

@@ -25,6 +25,7 @@ class MoviesViewModel(
         moviesCounterDisposable = moviesRepository.getCount()
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
             .subscribe {
                 Log.d("SEED", "Counter: $it")
                 if (it > 0) {

@@ -14,4 +14,6 @@ class MoviesRepository(private val moviesLocalDataSource: MoviesLocalDataSource)
     fun getCount(): Observable<Int> = moviesLocalDataSource.getCount()
 
     fun search(text: String): Observable<List<Movie>> = moviesLocalDataSource.search(text)
+
+    fun getMovie(title: String) = moviesLocalDataSource.getMovie(title)
 }
