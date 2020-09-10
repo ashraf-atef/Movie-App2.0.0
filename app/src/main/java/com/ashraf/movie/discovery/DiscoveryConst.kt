@@ -3,7 +3,7 @@ package com.ashraf.movie.discovery
 const val LOCAL_PAGE_SIZE = 20
 const val LOCAL_SEARCH_YEAR_LIMIT = 5
 
-const val REMOTE_PAGE_SIZE = 10
+const val PHOTOS_PAGE_SIZE = 20
 
 const val FARM_KEY = "{FARM}"
 const val SERVER_KEY = "{SERVER}"

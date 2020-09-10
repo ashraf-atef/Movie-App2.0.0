@@ -1,9 +1,8 @@
 package com.ashraf.movie.discovery.details
 
-import com.airbnb.mvrx.BaseMvRxViewModel
-import com.airbnb.mvrx.MvRxViewModelFactory
-import com.airbnb.mvrx.ViewModelContext
+import com.airbnb.mvrx.*
 import com.ashraf.movie.discovery.data.MoviesRepository
+import com.ashraf.movie.discovery.data.local.Movie
 import com.ashraf.movie.discovery.details.domain.GettingMoviesPhotosUseCase
 import io.reactivex.schedulers.Schedulers
 import org.koin.android.ext.android.get
@@ -16,6 +15,7 @@ class MovieDetailsViewModel(
 
     init {
         getMovie()
+        getPhotos()
     }
 
     fun getMovie() {
@@ -27,12 +27,21 @@ class MovieDetailsViewModel(
                         movie = it
                     )
                 }
+        }
+    }
+
+    fun getPhotos() {
+        withState { state ->
+            if (state.photosPageRequest is Loading)
+                return@withState
 
             gettingMoviesPhotosUseCase.apply(state.title)
                 .subscribeOn(Schedulers.io())
                 .execute {
+            val newPhotos: List<String> = if (it is Success) (it)()!! else listOf()
                     copy(
-                        photos = it
+                        photos = photos + newPhotos,
+                        photosPageRequest = it
                     )
                 }
         }

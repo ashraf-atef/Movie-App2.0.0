@@ -7,7 +7,8 @@ import com.ashraf.movie.discovery.data.local.Movie
 
 data class MovieDetailsState(
     val title: String,
-    val photos: Async<List<String>> = Uninitialized,
+    val photos: List<String> = listOf(),
+    val photosPageRequest: Async<List<String>> = Uninitialized,
     val movie: Async<Movie> = Uninitialized
 ): MvRxState {
     constructor(args: MovieArgs) : this(args.title)

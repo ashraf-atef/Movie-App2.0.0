@@ -1,4 +1,4 @@
-package com.ashraf.movie.discovery.details.data
+package com.ashraf.movie.discovery.details.data.remote
 
 import com.ashraf.movie.common.data.remote.RemoteAPI
 import com.ashraf.movie.discovery.details.data.model.MoviesPhotosResponse

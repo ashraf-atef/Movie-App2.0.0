@@ -8,7 +8,7 @@ class GettingMoviesPhotosUseCase(private val moviePhotosRepository: MoviePhotosR
 
     fun apply(title: String): Single<List<String>> =
         moviePhotosRepository.getMoviePhotos(title)
-            .map { response ->  response.photos.photo.map {
+            .map { moviePhotos ->  moviePhotos.map {
                     FLICKR_PHOTO_URL_TEMPLATE
                         .replace(FARM_KEY, it.farm.toString())
                         .replace(SERVER_KEY, it.server)

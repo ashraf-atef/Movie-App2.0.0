@@ -18,7 +18,7 @@ abstract class PhotoModel : EpoxyModelWithHolder<PhotoModel.Holder>() {
         with(holder) {
             Glide.with(holder.ivMoviePhoto.context)
                 .load(photoUrl)
-                .placeholder(R.color.gray)
+                .placeholder(R.drawable.ic_placholder)
                 .into(holder.ivMoviePhoto)
         }
     }
