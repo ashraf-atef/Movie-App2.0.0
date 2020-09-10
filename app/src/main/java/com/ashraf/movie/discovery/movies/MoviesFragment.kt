@@ -24,11 +24,7 @@ class MoviesFragment : BaseMvRxFragment(R.layout.fragment_movies_fragmment) {
             override fun buildModels() {
                 withState(moviesViewModel) {
                     // Add Movies
-                    (when {
-                        it.filterText.isEmpty() -> it.movies
-                        it.filteredMoviesRequest is Success -> (it.filteredMoviesRequest)()
-                        else -> listOf()
-                    })
+                    (if (it.filterText.isEmpty()) it.movies else it.filteredMovies)
                         .forEach { item: Movie ->
                             movie {
                                 id("movie", item.title)

@@ -11,6 +11,10 @@ data class MoviesState(
      */
     val movies: List<Movie> = listOf(),
     /**
+     * A list presents the filtered list after the search or any filters
+     */
+    val filteredMovies: List<Movie> = listOf(),
+    /**
      * The text of filter or search
      */
     val filterText: String = "",

@@ -19,6 +19,7 @@ class MoviesViewModel(
     }
 
     private lateinit var moviesCounterDisposable: Disposable
+    private lateinit var moviesSearchDisposable: Disposable
 
     private fun listenUntilAnyRecordsInserted() {
         moviesCounterDisposable = moviesRepository.getCount()
@@ -41,27 +42,40 @@ class MoviesViewModel(
                 val newMovies: List<Movie> = if (it is Success) (it)()!! else listOf()
                 copy(
                     insertingSeedsOnProgress = false,
-                    movies = (movies + newMovies),
+                    movies = movies + newMovies,
                     moviesPageRequest = it
                 )
             }
     }
 
     fun onSearch(text: String) {
-        setState {
-            copy(
-                filterText = text,
-                filteredMoviesRequest = Uninitialized
-            )
-        }
-        if (text.isNotEmpty())
-            moviesRepository.search(text)
+        if (text.isEmpty())
+            setState {
+                copy(
+                    filterText = "",
+                    filteredMoviesRequest = Uninitialized,
+                    filteredMovies = listOf()
+                )
+            }
+        else {
+            disposeSearch()
+            moviesSearchDisposable = moviesRepository.search(text)
                 .subscribeOn(Schedulers.io())
                 .execute {
                     copy(
-                        filteredMoviesRequest = if (it is Success) 
-                    )
+                        filterText = text,
+                        filteredMoviesRequest = it,
+                        filteredMovies = when (it) {
+                            is Success -> filteredMovies + (it)()!!
+                            else -> listOf()
+                        })
                 }
+        }
+    }
+
+    private fun disposeSearch() {
+        if (::moviesSearchDisposable.isInitialized && !moviesSearchDisposable.isDisposed)
+            moviesSearchDisposable.dispose()
     }
 
     companion object : MvRxViewModelFactory<MoviesViewModel, MoviesState> {
