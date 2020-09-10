@@ -10,4 +10,12 @@ class MoviesLocalDataSource(val movieDao: MovieDao) {
         movieDao.getMovies(PAGE_SIZE * page - 1, PAGE_SIZE);
 
     fun getCount(): Observable<Int> = movieDao.getCount()
+
+    fun search(text: String): Observable<List<Movie>> =
+        movieDao.selectDistinctYearsSearchByTitle(text)
+            .flatMapIterable { years: List<Int> -> years}
+            .flatMap { year ->
+                movieDao.searchByTitleAndYearLimit(text, year)
+            }
+
 }

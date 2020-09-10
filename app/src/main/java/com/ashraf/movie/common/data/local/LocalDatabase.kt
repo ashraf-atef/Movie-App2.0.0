@@ -64,6 +64,7 @@ abstract class LocalDatabase : RoomDatabase() {
                     inputStream.read(byteArray)
                     val moviesStr = String(byteArray)
                     val moviesSeed: MoviesSeed = Gson().fromJson(moviesStr, MoviesSeed::class.java)
+
                    Observable.fromIterable(moviesSeed.movies.groupBy { it.year }.values)
                        .delay(1, TimeUnit.SECONDS)
                        .flatMapCompletable {

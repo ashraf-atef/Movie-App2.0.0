@@ -1,10 +1,7 @@
 package com.ashraf.movie.discovery.movies
 
 import android.util.Log
-import com.airbnb.mvrx.BaseMvRxViewModel
-import com.airbnb.mvrx.MvRxViewModelFactory
-import com.airbnb.mvrx.Success
-import com.airbnb.mvrx.ViewModelContext
+import com.airbnb.mvrx.*
 import com.ashraf.movie.discovery.data.MoviesRepository
 import com.ashraf.movie.discovery.data.local.Movie
 import io.reactivex.disposables.Disposable
@@ -22,6 +19,7 @@ class MoviesViewModel(
     }
 
     private lateinit var moviesCounterDisposable: Disposable
+    private lateinit var moviesSearchDisposable: Disposable
 
     private fun listenUntilAnyRecordsInserted() {
         moviesCounterDisposable = moviesRepository.getCount()
@@ -44,10 +42,40 @@ class MoviesViewModel(
                 val newMovies: List<Movie> = if (it is Success) (it)()!! else listOf()
                 copy(
                     insertingSeedsOnProgress = false,
-                    movies = (movies + newMovies),
+                    movies = movies + newMovies,
                     moviesPageRequest = it
                 )
             }
+    }
+
+    fun onSearch(text: String) {
+        if (text.isEmpty())
+            setState {
+                copy(
+                    filterText = "",
+                    filteredMoviesRequest = Uninitialized,
+                    filteredMovies = listOf()
+                )
+            }
+        else {
+            disposeSearch()
+            moviesSearchDisposable = moviesRepository.search(text)
+                .subscribeOn(Schedulers.io())
+                .execute {
+                    copy(
+                        filterText = text,
+                        filteredMoviesRequest = it,
+                        filteredMovies = when (it) {
+                            is Success -> filteredMovies + (it)()!!
+                            else -> listOf()
+                        })
+                }
+        }
+    }
+
+    private fun disposeSearch() {
+        if (::moviesSearchDisposable.isInitialized && !moviesSearchDisposable.isDisposed)
+            moviesSearchDisposable.dispose()
     }
 
     companion object : MvRxViewModelFactory<MoviesViewModel, MoviesState> {
