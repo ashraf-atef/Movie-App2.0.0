@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "Movie")
 class Movie (
-    @NonNull
     @PrimaryKey
+    @NonNull
     val title: String,
     val year: Int,
     val cast: ArrayList<String>,

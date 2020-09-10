@@ -10,8 +10,10 @@ import com.ashraf.movie.R
 import com.ashraf.movie.common.presentation.epoxy.loadingModel
 import com.ashraf.movie.discovery.details.epoxy.emptyMessage
 import com.ashraf.movie.discovery.details.epoxy.photo
+import com.example.epoxyexample.common.EndlessRecyclerViewOnScrollListener
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.fragment_movie_details.*
+import kotlinx.android.synthetic.main.fragment_movies.*
 
 @Parcelize
 data class MovieArgs(
@@ -28,34 +30,33 @@ class MovieDetailsFragment : BaseMvRxFragment(R.layout.fragment_movie_details) {
             override fun buildModels() {
                 withState(movieDetailsViewModel) {
                     // Add photos
-                    when (it.photos) {
-                        is Success -> {
-                            with((it.photos)()) {
-                                if (isEmpty())
-                                    emptyMessage {
-                                        id("empty_message")
-                                        message(getString(R.string.msg_empty_photos))
-                                        spanSizeOverride { _, _, _ -> 2 }
-                                    }
-                                else
-                                    this.forEach { url ->
-                                        photo {
-                                            id("photo", url)
-                                            photoUrl(url)
-                                            spanSizeOverride { _, _, _ -> 1}
-                                        }
-                                    }
+                    with(it.photos) {
+                        if (isEmpty() && it.photosPageRequest is Success)
+                            emptyMessage {
+                                id("empty_message")
+                                message(getString(R.string.msg_empty_photos))
+                                spanSizeOverride { _, _, _ -> 2 }
                             }
-                        }
-                        is Error -> Toast.makeText(
+                        else
+                            this.forEach { url ->
+                                photo {
+                                    id("photo", url)
+                                    photoUrl(url)
+                                    spanSizeOverride { _, _, _ -> 1 }
+                                }
+                            }
+                    }
+
+                    // Display error if found
+                    if (it.photosPageRequest is Error)
+                        Toast.makeText(
                             requireContext(),
                             getString(R.string.msg_error),
                             Toast.LENGTH_LONG
                         ).show()
-                    }
 
                     // Add loading if is loading
-                    if (it.photos is Loading)
+                    if (it.photosPageRequest is Loading)
                         loadingModel {
                             id("loading")
                         }
@@ -84,6 +85,11 @@ class MovieDetailsFragment : BaseMvRxFragment(R.layout.fragment_movie_details) {
                 }
             }
             photosController.requestModelBuild()
+            rv_movie_photos.addOnScrollListener(object : EndlessRecyclerViewOnScrollListener() {
+                override fun onLoadMore() {
+                    movieDetailsViewModel.getPhotos()
+                }
+            })
         }
     }
 

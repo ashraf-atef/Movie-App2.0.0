@@ -7,7 +7,7 @@ import io.reactivex.Single
 class MoviesLocalDataSource(val movieDao: MovieDao) {
 
     fun getMovies(page: Int): Single<List<Movie>> =
-        movieDao.getMovies(LOCAL_PAGE_SIZE * page - 1, LOCAL_PAGE_SIZE);
+        movieDao.getMovies(LOCAL_PAGE_SIZE * (page - 1), LOCAL_PAGE_SIZE);
 
     fun getCount(): Observable<Int> = movieDao.getCount()
 

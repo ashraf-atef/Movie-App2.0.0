@@ -6,4 +6,5 @@ import org.koin.dsl.module
 val databaseModule = module {
     single { LocalDatabase.getInstance(get()) }
     single { get<LocalDatabase>().moviesDao() }
+    single { get<LocalDatabase>().photosDao() }
 }

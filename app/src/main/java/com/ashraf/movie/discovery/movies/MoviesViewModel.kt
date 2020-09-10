@@ -37,16 +37,21 @@ class MoviesViewModel(
     }
 
     fun getMovies() {
-        moviesRepository.getMovies()
-            .subscribeOn(Schedulers.io())
-            .execute {
-                val newMovies: List<Movie> = if (it is Success) (it)()!! else listOf()
-                copy(
-                    insertingSeedsOnProgress = false,
-                    movies = movies + newMovies,
-                    moviesPageRequest = it
-                )
-            }
+        withState {
+            if (it.moviesPageRequest is Loading)
+                return@withState
+
+            moviesRepository.getMovies()
+                .subscribeOn(Schedulers.io())
+                .execute {
+                    val newMovies: List<Movie> = if (it is Success) (it)()!! else listOf()
+                    copy(
+                        insertingSeedsOnProgress = false,
+                        movies = movies + newMovies,
+                        moviesPageRequest = it
+                    )
+                }
+        }
     }
 
     fun onSearch(text: String) {
