@@ -10,15 +10,10 @@ import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.ashraf.movie.R
 import com.ashraf.movie.common.data.local.di.MoviesSeed
-import com.ashraf.movie.discovery.PAGE_SIZE
 import com.ashraf.movie.discovery.data.local.Movie
 import com.ashraf.movie.discovery.data.local.MovieDao
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import io.reactivex.Completable
 import io.reactivex.Observable
-import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
 import java.io.InputStream
 import java.util.concurrent.TimeUnit
 

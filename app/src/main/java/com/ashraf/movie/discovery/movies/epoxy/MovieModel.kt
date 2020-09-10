@@ -1,6 +1,7 @@
 package com.ashraf.movie.discovery.movies.epoxy
 
 import android.graphics.Color
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
@@ -16,6 +17,8 @@ abstract class MovieModel : EpoxyModelWithHolder<MovieModel.Holder>() {
 
     @EpoxyAttribute
     lateinit var movie: Movie
+    @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
+    lateinit var movieClickListener : View.OnClickListener
 
     override fun bind(holder: Holder) {
         with(holder) {
@@ -29,6 +32,8 @@ abstract class MovieModel : EpoxyModelWithHolder<MovieModel.Holder>() {
             ivMovieBanner.setBackgroundColor(color)
             tvMovieTitle.text = movie.title
             tvMovieRate.text = movie.rating.toString()
+
+            ivMovieBanner.setOnClickListener(movieClickListener)
         }
     }
 

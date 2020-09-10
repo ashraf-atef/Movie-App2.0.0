@@ -1,13 +1,13 @@
 package com.ashraf.movie.discovery.data.local
 
-import com.ashraf.movie.discovery.PAGE_SIZE
+import com.ashraf.movie.discovery.LOCAL_PAGE_SIZE
 import io.reactivex.Observable
 import io.reactivex.Single
 
 class MoviesLocalDataSource(val movieDao: MovieDao) {
 
     fun getMovies(page: Int): Single<List<Movie>> =
-        movieDao.getMovies(PAGE_SIZE * page - 1, PAGE_SIZE);
+        movieDao.getMovies(LOCAL_PAGE_SIZE * page - 1, LOCAL_PAGE_SIZE);
 
     fun getCount(): Observable<Int> = movieDao.getCount()
 
@@ -18,4 +18,5 @@ class MoviesLocalDataSource(val movieDao: MovieDao) {
                 movieDao.searchByTitleAndYearLimit(text, year)
             }
 
+    fun getMovie(title: String) = movieDao.searchByTitle(title)
 }
