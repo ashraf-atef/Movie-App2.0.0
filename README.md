@@ -22,6 +22,7 @@ those movies and the signature they left behind.
 * The movies should be displayed in a grid of two columns.
 * A loader should be displayed during loading the movie.
 ##### Expected design
+In the app. Clone and run the repo now :D.
 ---
 #### 2. As a user I wanna tab on any movie in the list, SO THAT I expect to see the movie details.
 ##### Acceptance criteria
