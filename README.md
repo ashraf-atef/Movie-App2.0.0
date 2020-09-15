@@ -94,7 +94,6 @@ They make the recyclerview be like you are typing DEVs each one under the other 
 # Special thanks
 * [Abdelrhman Walid](https://www.linkedin.com/in/abdelrhmanwalid) my friend who works in Truecaller and who left in the Elmenus Repos amazing code that uses MvRx and Epoxy.
 * [Ahmed Mahmoud Saleh](https://www.linkedin.com/in/amssm) My awesome teammate who keep working with on the Bootsrap Android project in Robusta Studio after the working hours and after I left Robusta Studio.
-* [Ahmed Abouraya](https://www.linkedin.com/in/ahmed-abouraya-23958858) my team leader in Robusta Studio and who started with me amazing descussion to build amzaing architecture in our base **Android Bootstrap** which will be open source soon.
 * [Mostafa Montser](https://www.linkedin.com/in/mostafa-magdy-09587758) my study group leader in MAL.
 * Tawseela team 🧡
     * Tayssir Elhwary
@@ -113,6 +112,10 @@ They make the recyclerview be like you are typing DEVs each one under the other 
     * Mohamed Shalan
     * Ahmed Mahmoud Saleh
     * Haidy Emad
+    * Ahmed AbouRaya (Mobile Team Leader)
+    * Ahmed AbouSayfy (Operation Manager)
+    * Islam AbdElraof (Product Manager)
+    * Hussien Mohy-Eldeen (CEO)
 * Elmenus Team 🧡
     * Mohammed Fawzy
     * Mohammed Elazab
