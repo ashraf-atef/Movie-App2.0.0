@@ -114,6 +114,7 @@ They make the recyclerview be like you are typing DEVs each one under the other 
     * Ahmed Mahmoud Saleh
     * Haidy Emad
     * Ahmed AbouRaya (Mobile Team Leader)
+    * Omar Mekky (Head Of Engineering)
     * Ahmed AbouSayfy (Operation Manager)
     * Islam AbdElraof (Product Manager)
     * Hussien Mohy-Eldeen (CEO)
